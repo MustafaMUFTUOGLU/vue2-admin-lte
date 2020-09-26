@@ -12,3 +12,15 @@ export const fetchProduct = ({ commit }) => {
     console.error(error)
   })
 }
+
+export const fetchRooms = ({ commit }) => {
+  // API request
+  return services.rooms.getAll()
+  .then((response) => {
+    console.log(response)
+    commit(types.FETCH_ROOMS, response.data)
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+}

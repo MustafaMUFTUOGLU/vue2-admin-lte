@@ -12,21 +12,13 @@
           <a href="#"><i class="fa fa-circle" :style="`color:${currentUser.state.color}`"></i> {{ currentUser.state.name }}</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
+      
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul data-widget="tree" class="sidebar-menu">
+        
         <va-slide-item
-          v-for="(item,index) in slideMenuItems"
+          v-for="(item,index) in roomsList"
           :data="item"
           :key="index"
           :type="item.type"
@@ -46,23 +38,29 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import VASlideItem from './components/VASlideItem'
 
 export default {
   name: 'va-slider',
   props: {
-    slideMenuItems: {
-      type: Array,
-      default: []
-    }
+    // slideMenuItems: {
+    //   type: Array,
+    //   default: []
+    // }
   },
   created () {
-
+    this.fetchRooms()
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'roomsList'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'fetchRooms'
     ])
   },
   components: {

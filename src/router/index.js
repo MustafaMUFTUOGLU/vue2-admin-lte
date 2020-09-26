@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+import SvgPanel from 'components/SvgPanel.vue'
 import Hello from 'components/Hello.vue'
-import Sample from 'components/Sample.vue'
+// import Sample from 'components/Sample.vue'
 import DashboardV1 from 'examples/Dashboard.v1.vue'
 import DashboardV2 from 'examples/Dashboard.v2.vue'
 import InfoBoxExample from 'examples/InfoBoxExample'
@@ -34,9 +36,9 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/sample',
-      name: 'Sample',
-      component: Sample
+      path: '/rooms',
+      name: 'Rooms',
+      component: SvgPanel
     },
     {
       path: '/dashboard/v1',

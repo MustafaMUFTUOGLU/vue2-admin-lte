@@ -1,6 +1,6 @@
 const state = {
   main: {
-    name: 'Alexander Pierce',
+    name: 'Mustafa',
     position: 'Web Developer',
     state: {
       color: '#3c763d',
