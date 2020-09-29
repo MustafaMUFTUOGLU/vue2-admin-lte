@@ -36,8 +36,7 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/rooms',
-      name: 'Rooms',
+      path: '/rooms/:id',
       component: SvgPanel
     },
     {

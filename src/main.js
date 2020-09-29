@@ -12,6 +12,7 @@ import axios from 'axios'
 
 Vue.prototype.$bus = EventBus
 Vue.prototype.$http = axios
+// Vue.prototype.$socketip = socketio
 
 /* eslint-disable no-new */
 new Vue({

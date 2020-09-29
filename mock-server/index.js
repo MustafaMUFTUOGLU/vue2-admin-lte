@@ -48,7 +48,7 @@ module.exports = function () {
           icon: 'fa fa-circle-o',
           name: 'Kat1',
           router: {
-            name: 'Hello'
+            name: 'rooms/Kat1'
           }
         },
         {
@@ -56,7 +56,7 @@ module.exports = function () {
           icon: 'fa fa-circle-o',
           name: 'Kat2',
           router: {
-            name: 'Rooms'
+            name: 'rooms/Kat2'
           }
         }
       ]
