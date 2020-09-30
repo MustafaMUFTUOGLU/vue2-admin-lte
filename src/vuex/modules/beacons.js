@@ -1,5 +1,5 @@
 const state = {
-  beaconsList: [1, 2, 3]
+  beaconsList: []
 }
 
 const getters = {

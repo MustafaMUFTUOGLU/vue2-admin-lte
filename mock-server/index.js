@@ -1,36 +1,41 @@
-const faker = require('faker')
+const sqlite3 = require('sqlite3').verbose();
 
-let productId = 1
-class FakeProdcut {
-  constructor () {
-    this.id = productId++
-    let fc = faker.commerce
-    this.name = fc.productName()
-    this.color = fc.color()
-    this.department = fc.department()
-    this.price = fc.price()
-    this.adjective = fc.productAdjective()
-    this.material = fc.productMaterial()
-    this.product = fc.product()
+var datam = [];
+
+let db = new sqlite3.Database('./db.db', sqlite3.OPEN_READWRITE, (err) => {
+  if (err) {
+    console.error(err.message);
   }
+  console.log('Connected to the chinook database.');
+});
 
-  serialize () {
-    return {
-      id: this.id,
-      name: this.name,
-      color: this.color,
-      department: this.department,
-      price: this.price,
-      adjective: this.adjective,
-      material: this.material,
-      product: this.product
+db.serialize(() => {
+  db.each(`SELECT * FROM Bolgeler`, (err, row) => {
+    if (err) {
+      console.error(err.message);
     }
+    console.log(row);
+    datam.push({
+      type: 'item',
+      icon: 'fa fa-circle-o',
+      name: row.BolgeAdi,
+      router: {
+        name: 'rooms/' + row.BolgeAdi.replace(/\s/g, '')
+      }
+    });
+  });
+});
+
+db.close((err) => {
+  if (err) {
+    console.error(err.message);
   }
-}
-
-
+  console.log('Close the database connection.');
+});
 
 module.exports = function () {
+
+
   //var data = { products: [] }
   var data = { roomslist :[
     {
@@ -42,40 +47,11 @@ module.exports = function () {
       type: 'tree',
       icon: 'fa fa-dashboard',
       name: 'Katlar',
-      items: [
-        {
-          type: 'item',
-          icon: 'fa fa-circle-o',
-          name: 'Kat1',
-          router: {
-            name: 'rooms/Kat1'
-          }
-        },
-        {
-          type: 'item',
-          icon: 'fa fa-circle-o',
-          name: 'Kat2',
-          router: {
-            name: 'rooms/Kat2'
-          }
-        }
-      ]
+      items: datam
     }
   ]}
   // Create 1000 Product
   //data.products = generateFakeObject(FakeProdcut, 5) 
   return data 
 }
-
-function generateFakeObject (TARGETCLASS = '', count = 10) {
-  if (typeof TARGETCLASS !== 'function') {
-    console.error('클래스가 아님')
-    return []
-  }
-  let result = []
-  for (var i = 0; i < count; i++) {
-    const fp = new TARGETCLASS()
-    result.push(fp.serialize())
-  }
-  return result
-}
+ 

@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import store from '../vuex/store.js'
 
-const socket = io('localhost:4001/lobby', {autoConnect: false})
+var socket = io('localhost:4001/Beacons', {autoConnect: false})
 
 socket.on('connect', function () {
   console.log('socket connect')
@@ -12,8 +12,8 @@ socket.on('event', function (data) {
 })
 
 socket.on('beacons', function (data) {
-  console.log('beacons', data)
-  console.log('aa:', store)
+  // console.log('beacons', data)
+  // console.log('aa:', store)
   store.dispatch('triggerChangeBeaconsList', data)
 })
 
@@ -26,7 +26,9 @@ function start () {
 }
 
 function stop () {
+  console.log('sotp socket')
   socket.disconnect()
+  socket = {}
 }
 
 export default {

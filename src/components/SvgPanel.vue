@@ -1,7 +1,7 @@
 <template> 
 <div class="box">
   <div class="box-header with-border">
-    <h3 class="box-title">{{ this.$route.params.id }} / {{ this.$store.getters.getBeaconsList }}</h3> 
+    <h3 class="box-title">{{ this.$route.params.id }} / {{ filteredBeacon }}</h3> 
     <!-- /.box-tools -->
   </div>
   
@@ -85,9 +85,9 @@
       inkscape:connector-curvature="0"
       id="path246"
       d="m 80.1,810.7 c -5.9,4.8 -2.2,14.7 5.4,14.7 7.4,0 11.2,-8.8 6,-13.9 -2.9,-3 -8.3,-3.3 -11.4,-0.8 z m 10.6,1.5 c 4,3.7 2.7,9.6 -2.6,11.7 -2.4,1 -3.4,1 -5.9,-0.3 -4.7,-2.4 -5.5,-6.6 -2.1,-11 2.6,-3.3 7.3,-3.5 10.6,-0.4 z" />
-    
-    <circle r="20" v-for="i in this.$store.getters.getBeaconsList" :cx="i.x" :cy="i.y" class="circle"/>
-    
+    <g>
+      <circle r="20" v-for="ii in filteredBeacon" :key="ii.id" :cx="ii.x" :cy="ii.y" class="circle"/>
+    </g>
     </svg>
     
     </SvgPanZoom>
@@ -102,14 +102,32 @@ import socketio from '../socketio'
 
 export default {
   name: 'va-svgpanel',
+  data () {
+    return {
+      asdad: 'this.$route.params.id'
+    }
+  },
   props: ['stats'],
   components: { SvgPanZoom, mapGetters, socketio },
   computed: {
     ...mapGetters([
       'getBeaconsList'
     ]),
-    list: function () {
-      return '100,20 169.28203230275508,59.99999999999999 169.2820323027551,140 100.00000000000001,180 30.717967697244916,140.00000000000003 30.717967697244873,60.00000000000006'
+    filteredBeacon: function () {
+      var dddd = this.$route.params.id
+      var ddd = this.$store.getters.getBeaconsList.filter(function (bolge) {
+        return bolge.Bolge.BolgeAdi.replace(/\s/g, '') === dddd
+      })
+      var beac = ddd.pop()
+      if (beac) {
+        if (typeof beac.Beacons !== 'undefined') {
+          return beac.Beacons
+        } else {
+          return []
+        }
+      } else {
+        return []
+      }
     }
   },
   created () {
