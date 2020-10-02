@@ -24,3 +24,15 @@ export const fetchRooms = ({ commit }) => {
     console.error(error)
   })
 }
+
+export const fetchPlane = ({ commit, state }, bolge) => {
+  return services.plain.getAll(bolge)
+  .then((response) => {
+    console.log(response)
+    // debugger
+    // commit(types.FETCH_ROOMS, response.data)
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+}

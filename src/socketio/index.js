@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import store from '../vuex/store.js'
 
-var socket = io('localhost:4001/Beacons', {autoConnect: false})
+var socket = io('localhost:4001/Beacons', {autoConnect: true})
 
 socket.on('connect', function () {
   console.log('socket connect')

@@ -8,8 +8,8 @@
           <img src="~admin-lte/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>{{ currentUser.name }}</p>
-          <a href="#"><i class="fa fa-circle" :style="`color:${currentUser.state.color}`"></i> {{ currentUser.state.name }}</a>
+          <!-- <p>{{ currentUser.name }}</p> -->
+          <!-- <a href="#"><i class="fa fa-circle" :style="`color:${currentUser.state.color}`"></i> {{ currentUser.state.name }}</a> -->
         </div>
       </div>
       
@@ -18,7 +18,7 @@
       <ul data-widget="tree" class="sidebar-menu">
         
         <va-slide-item
-          v-for="(item,index) in roomsList"
+          v-for="(item,index) in slideMenuItems"
           :data="item"
           :key="index"
           :type="item.type"
@@ -38,30 +38,31 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+
+// import { mapGetters, mapActions } from 'vuex'
 import VASlideItem from './components/VASlideItem'
 
 export default {
   name: 'va-slider',
   props: {
-    // slideMenuItems: {
-    //   type: Array,
-    //   default: []
-    // }
+    slideMenuItems: {
+      type: Array,
+      default: []
+    }
   },
   created () {
-    this.fetchRooms()
+  //   this.fetchRooms()
   },
   computed: {
-    ...mapGetters([
-      'currentUser',
-      'roomsList'
-    ])
+    // ...mapGetters([
+    //   'currentUser',
+    //   'roomsList'
+    // ])
   },
   methods: {
-    ...mapActions([
-      'fetchRooms'
-    ])
+    // ...mapActions([
+    //   'fetchRooms'
+    // ])
   },
   components: {
     'va-slide-item': VASlideItem
