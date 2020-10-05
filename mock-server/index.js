@@ -37,7 +37,16 @@ module.exports = function () {
 
 
   //var data = { products: [] }
-  var data = { roomslist :[
+  var data = { 
+    taglist: [ 
+      { id: 1, tagName: "tag1", gateway: "depo", state: 1 },
+      { id: 2, tagName: "tag2", gateway: "depo", state: 2 }
+    ],
+    taghistory: [ 
+      { id: 1, tagName: "tag1", gateway: "depo", state: 1, saat: '10:12:20' },
+      { id: 2, tagName: "tag2", gateway: "depo", state: 2, saat: '11:09:15' }
+    ],
+    roomslist: [
     {
       type: 'item',
       isHeader: true,

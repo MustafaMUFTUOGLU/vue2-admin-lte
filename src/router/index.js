@@ -3,8 +3,8 @@ import Router from 'vue-router'
 
 import SvgPanel from 'components/SvgPanel.vue'
 import Hello from 'components/Hello.vue'
-// import Sample from 'components/Sample.vue'
-import DashboardV1 from 'examples/Dashboard.v1.vue'
+import GirisCikis from 'components/GirisCikis.vue'
+// import DashboardV1 from 'examples/Dashboard.v1.vue'
 import DashboardV2 from 'examples/Dashboard.v2.vue'
 import InfoBoxExample from 'examples/InfoBoxExample'
 import ChartExample from 'examples/ChartExample'
@@ -40,9 +40,9 @@ export default new Router({
       component: SvgPanel
     },
     {
-      path: '/dashboard/v1',
-      name: 'DashboardV1',
-      component: DashboardV1
+      path: '/giriscikis',
+      name: 'GirisCikis',
+      component: GirisCikis
     },
     {
       path: '/dashboard/v2',

@@ -31,6 +31,19 @@
           :link="item.link"
         >
         </va-slide-item>
+        <va-slide-item
+          v-for="(item,index) in slideMenuFixItems"
+          :data="item"
+          :type="item.type"
+          :isHeader="item.isHeader"
+          :icon="item.icon"
+          :name="item.name"
+          :badge="item.badge"
+          :items="item.items"
+          :router="item.router"
+          :link="item.link"
+        >
+        </va-slide-item>
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -46,6 +59,10 @@ export default {
   name: 'va-slider',
   props: {
     slideMenuItems: {
+      type: Array,
+      default: []
+    },
+    slideMenuFixItems: {
       type: Array,
       default: []
     }
