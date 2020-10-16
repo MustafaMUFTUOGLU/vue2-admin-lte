@@ -7,7 +7,7 @@
           <h3 class="box-title">Personeller</h3>
           <div class="box-tools pull-right">
             <div class="has-feedback">
-              <input type="text" class="form-control input-sm" placeholder="Personel Ara">
+              <input type="text" class="form-control input-sm" placeholder="Personel Ara" @input="addEvent" @change="addEvent" > 
               <span class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>
           </div>
@@ -18,20 +18,22 @@
             <table class="table no-margin">
               <thead>
               <tr>
-                <th>Sicil No</th>
+                <th style="width: 150px">Sicil No</th>
                 <th>Personel Adi</th>
-                <th>Tag MAC</th>
-                <th></th>
+                <th style="width: 200px">Tag MAC</th>
+                <th style="width: 150px"></th>
               </tr>
               </thead>
               <tbody>
-              <tr v-for="item in personelList" v-bind:item="item" v-bind:key="item.PersonelId">
+              <tr v-for="item in searchResultList.slice(pageStart, pageStart+15)" v-bind:item="item" v-bind:key="item.PersonelId">
                 <td>{{item.PersonelSicilNo}}</td>
                 <td>{{item.PersonelAdi}}</td>
                 <td>{{item.TagMac?item.TagMac:"BOS"}}</td>
-                <th style="width: 150px">
+                <th>
                   <div>
+                    <router-link :to='"/personelSearch/" + item.PersonelSicilNo'>
                     <button v-if="item.TagMac" type="button" class="btn btn-success btn-flat btn-sm"><i class="fa fa-map-marker"></i></button>
+                    </router-link>
                     <button type="button" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i></button>
                   </div>
@@ -45,11 +47,7 @@
         <!-- /.box-body -->
         <div class="box-footer clearfix">
           <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
+            <li v-for="n in Math.ceil(searchResultCount / 15)"><button type="button" class="btn btn-flat btn-sm" :value="n" @click="pageSelect">{{n}}</button></li>
           </ul>
         </div>
         <!-- /.box-footer -->
@@ -68,58 +66,30 @@ export default {
       // taglists: [],
       // taglistsPrev: [],
       // tagHistory: []
+      pageStart: 0,
+      searchResultCount: 0,
+      searchResultList: [],
       personelList: []
     }
   },
   created () {
     expressServer.getPersonels().then((list) => {
-      this.personelList = list.data.slice(0, 15)
-      console.log(list)
+      this.personelList = list.data
+      this.searchResultCount = this.personelList.length
+      this.searchResultList = this.personelList
     })
-    // taglist.tagListGet().then((data) => {
-    //   var tmpData = [
-    //     {
-    //       id: 1,
-    //       tagName: 'tag1',
-    //       gateway: 'depo',
-    //       state: data.data.tag1
-    //     },
-    //     {
-    //       id: 2,
-    //       tagName: 'tag2',
-    //       gateway: 'depo',
-    //       state: data.data.tag2
-    //     }
-    //   ]
-    //   this.guncelle(tmpData)
-    //   this.intervalObj = setInterval(() => {
-    //     taglist.tagListGet().then((data) => {
-    //       // debugger
-    //       var tmpData = [
-    //         {
-    //           id: 1,
-    //           tagName: 'tag1',
-    //           gateway: 'depo',
-    //           state: data.data.tag1
-    //         },
-    //         {
-    //           id: 2,
-    //           tagName: 'tag2',
-    //           gateway: 'depo',
-    //           state: data.data.tag2
-    //         }
-    //       ]
-    //       this.guncelle(tmpData)
-    //     })
-    //   }, 3000)
-    // })
-
-    // taglist.tagHisyoryGet().then((data) => {
-    //   // debugger
-    //   this.tagHistory = data.data.slice().sort((a, b) => new Date(b.saat) - new Date(a.saat))
-    // })
   },
   methods: {
+    addEvent ({type, target}) {
+      this.searchResultList = this.personelList.filter(
+        a => a.PersonelAdi
+        .toLowerCase()
+        .includes(target.value.toLowerCase()))
+      this.searchResultCount = this.searchResultList.length
+    },
+    pageSelect ({type, target}) {
+      this.pageStart = (target.value - 1) * 15
+    }
     // guncelle (data) {
     //   this.taglists = data
     //   // debugger
