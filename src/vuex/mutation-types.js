@@ -1,2 +1,2 @@
 export const FETCH_PRODUCT = 'FETCH_PRODUCT'
-export const FETCH_ROOMS = 'FETCH_ROOMS'
+export const FETCH_BOLGELER = 'FETCH_BOLGELER'

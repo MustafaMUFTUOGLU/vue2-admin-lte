@@ -5,8 +5,8 @@ const state = {
 }
 
 const mutations = {
-  [types.FETCH_ROOMS] (state, roomList) {
-    state.main = roomList
+  [types.FETCH_BOLGELER] (state, bolgelerList) {
+    state.main = bolgelerList
   }
 }
 

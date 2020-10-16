@@ -1,32 +1,14 @@
 <template>
-  <router-link tag="li" v-if="router && router.name" :to="router">
-    <a href="#">
-      <i :class="icon"></i> <span>{{ name }}</span>
-      <span class="pull-right-container" v-show="badge">
-        <small class="label pull-right" :class="[badge.type==='String'?'bg-green':'label-primary']">{{ badge.data }}</small>
-      </span>
-    </a>
-  </router-link>
-  <li :class="getType" v-else>
-    {{ isHeader ? name : '' }}
-    <a href="#" v-if="!isHeader">
-      <i :class="icon"></i> <span>{{ name }}</span>
-      <span class="pull-right-container">
-        <small v-if="badge && badge.data" class="label pull-right" :class="[badge.type==='String'?'bg-green':'label-primary']">{{ badge.data }}</small>
-        <i v-else class="fa fa-angle-left pull-right"></i>
-      </span>
-    </a>
+  <li class="treeview ">
+    <router-link :to="'/Harita/' + router">
+      <i class="fa fa-circle-o"></i><span>{{ name }}</span>
+    </router-link>
     <ul class="treeview-menu" v-if="items.length > 0">
-      <router-link tag="li" v-for="(item,index) in items" :data="item" :key="index" :to="'/' + item.router.name" v-if="item.router && item.router.name">
+      <router-link tag="li" v-for="(item,index) in items" :data="item" :key="index" :to="'/Harita/' + router + '/' + item.AltKategoriAdi.replace(/\s/g, '+')">
         <a>
-          <i :class="item.icon"></i> {{ item.name }}
+          <i class="fa fa-circle-o"></i> {{ item.AltKategoriAdi }}
         </a>
       </router-link>
-      <li v-else>
-        <a>
-          <i :class="item.icon"></i> {{ item.name }}
-        </a>
-      </li>
     </ul>
   </li>
 </template>
@@ -35,26 +17,12 @@
 export default {
   name: 'va-slide-item',
   props: {
-    type: {
-      type: String,
-      default: 'item'
-    },
-    isHeader: {
-      type: Boolean,
-      default: false
-    },
     icon: {
       type: String,
       default: ''
     },
     name: {
       type: String
-    },
-    badge: {
-      type: Object,
-      default () {
-        return {}
-      }
     },
     items: {
       type: Array,
@@ -63,14 +31,6 @@ export default {
       }
     },
     router: {
-      type: Object,
-      default () {
-        return {
-          name: ''
-        }
-      }
-    },
-    link: {
       type: String,
       default: ''
     }
@@ -79,12 +39,12 @@ export default {
 
   },
   computed: {
-    getType () {
-      if (this.isHeader) {
-        return 'header'
-      }
-      return this.type === 'item' ? '' : 'treeview'
-    }
+    // getType () {
+    //   if (this.isHeader) {
+    //     return 'header'
+    //   }
+    //   return this.type === 'item' ? '' : 'treeview'
+    // }
   }
 }
 </script>

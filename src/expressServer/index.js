@@ -1,8 +1,13 @@
 import axios from 'axios'
 
 export default {
+  getPersonels (request = {}) {
+    return axios.get('http://localhost:4005/personel', request)
+    .then((response) => Promise.resolve(response))
+    .catch((error) => Promise.reject(error))
+  },
   tagListGet (request = {}) {
-    return axios.get('http://localhost:3000/taglist', request)
+    return axios.get('http://192.168.4.1', request)
       .then((response) => Promise.resolve(response))
       .catch((error) => Promise.reject(error))
   },

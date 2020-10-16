@@ -15,25 +15,25 @@ let db = new sqlite3.Database('./db.db', sqlite3.OPEN_READWRITE, (err) => {
 });
 
 db.serialize(() => {
-  db.each(`SELECT * FROM Bolgeler`, (err, row) => {
-    if (err) {
-      console.error(err.message);
-    }
-    var bolgeAdi = row.BolgeAdi.replace(/\s/g, '');
+  // db.each(`SELECT * FROM BolgeUstKategori`, (err, row) => {
+  //   if (err) {
+  //     console.error(err.message);
+  //   }
+  //   var bolgeAdi = row.Adi.replace(/\s/g, '');
 
-    //console.log(row);
-    bolgeler.push({Bolge: row, 
-     Beacons: [ 
-      {id : bolgeAdi+"1", x :10, y:20  },
-      {id : bolgeAdi+"2", x :30, y:40  },
-      {id : bolgeAdi+"3", x :50, y:60  },
-      {id : bolgeAdi+"4", x :70, y:80  }]
-    });
+  //   //console.log(row);
+  //   bolgeler.push({Bolge: row, 
+  //    Beacons: [ 
+  //     {id : bolgeAdi+"1", x :10, y:20  },
+  //     {id : bolgeAdi+"2", x :30, y:40  },
+  //     {id : bolgeAdi+"3", x :50, y:60  },
+  //     {id : bolgeAdi+"4", x :70, y:80  }]
+  //   });
 
-    //row.forEach(element => { 
-      console.log("/"+ bolgeAdi)
+  //   //row.forEach(element => { 
+  //     console.log("/"+ bolgeAdi)
       
-  });
+  // });
 });
 
 
@@ -70,15 +70,15 @@ var tmpc = io.of("/Beacons");
 
 //});
 const intervalObj = setInterval(() => {
-//console.log('interviewing the interval: ');
-bolgeler.forEach(element => {
-  element.Beacons.forEach(beacon => {
-    beacon.x = getRandomInt(10,700);
-    beacon.y = getRandomInt(10,700);
-});
-});
+  //console.log('interviewing the interval: ');
+  bolgeler.forEach(element => {
+    element.Beacons.forEach(beacon => {
+      beacon.x = getRandomInt(10,700);
+      beacon.y = getRandomInt(10,700);
+    });
+  });
 
-tmpc.emit('beacons', bolgeler);
+  // tmpc.emit('beacons', bolgeler);
 }, 1000);
 
 

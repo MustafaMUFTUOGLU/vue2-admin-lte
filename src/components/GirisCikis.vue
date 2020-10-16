@@ -88,59 +88,88 @@
 </template>
 
 <script>
-import taglist from '../gateway'
+// import expressServer from '../expressServer'
 export default {
   name: 'giriscikis',
   data () {
     return {
-      intervalObj: null,
-      taglists: [],
-      taglistsPrev: [],
-      tagHistory: []
+      // intervalObj: null,
+      taglists: []
+      // taglistsPrev: [],
+      // tagHistory: []
     }
   },
   created () {
-    taglist.tagListGet().then((data) => {
-      this.guncelle(data.data)
-      this.intervalObj = setInterval(() => {
-        taglist.tagListGet().then((data) => {
-          this.guncelle(data.data)
-        })
-      }, 3000)
-    })
+    // expressServer.tagListGet().then((data) => {
+    //   var tmpData = [
+    //     {
+    //       id: 1,
+    //       tagName: 'tag1',
+    //       gateway: 'depo',
+    //       state: data.data.tag1
+    //     },
+    //     {
+    //       id: 2,
+    //       tagName: 'tag2',
+    //       gateway: 'depo',
+    //       state: data.data.tag2
+    //     }
+    //   ]
+    //   this.guncelle(tmpData)
+    //   this.intervalObj = setInterval(() => {
+    //     expressServer.tagListGet().then((data) => {
+    //       // debugger
+    //       var tmpData = [
+    //         {
+    //           id: 1,
+    //           tagName: 'tag1',
+    //           gateway: 'depo',
+    //           state: data.data.tag1
+    //         },
+    //         {
+    //           id: 2,
+    //           tagName: 'tag2',
+    //           gateway: 'depo',
+    //           state: data.data.tag2
+    //         }
+    //       ]
+    //       this.guncelle(tmpData)
+    //     })
+    //   }, 3000)
+    // })
 
-    taglist.tagHisyoryGet().then((data) => {
-      // debugger
-      this.tagHistory = data.data.slice().sort((a, b) => new Date(b.saat) - new Date(a.saat))
-    })
+    // expressServer.tagHisyoryGet().then((data) => {
+    //   // debugger
+    //   this.tagHistory = data.data.slice().sort((a, b) => new Date(b.saat) - new Date(a.saat))
+    // })
   },
   methods: {
-    guncelle (data) {
-      this.taglists = data
-      // debugger
-      console.log('data : ', data)
-      console.log('this.tagHistory : ', this.taglistsPrev)
-      for (var item in data) {
-        for (var itm in this.taglistsPrev) {
-          if (this.taglistsPrev[itm].id === data[item].id) {
-            if ((this.taglistsPrev[itm].state !== data[item].state) && ((this.taglistsPrev[itm].state === 1) || (this.taglistsPrev[itm].state === 3))) {
-              console.log('degisiklik varrr')
-              taglist.addTagHistory(data[item]).then(() => {
-                taglist.tagHisyoryGet().then((data) => {
-                  this.tagHistory = data.data.slice().sort((a, b) => new Date(b.saat) - new Date(a.saat))
-                  // this.tagHistory = data.data
-                })
-              })
-            }
-            break
-          }
-        }
-      }
-      this.taglistsPrev = data
-    }
+    // guncelle (data) {
+    //   this.taglists = data
+    //   // debugger
+    //   console.log('data : ', data)
+    //   console.log('this.tagHistory : ', this.taglistsPrev)
+    //   for (var item in data) {
+    //     for (var itm in this.taglistsPrev) {
+    //       if (this.taglistsPrev[itm].id === data[item].id) {
+    //         if ((this.taglistsPrev[itm].state !== data[item].state) && ((this.taglistsPrev[itm].state === 1) || (this.taglistsPrev[itm].state === 3))) {
+    //           console.log('degisiklik varrr')
+    //           expressServer.addTagHistory(data[item]).then(() => {
+    //             expressServer.tagHisyoryGet().then((data) => {
+    //               this.tagHistory = data.data.slice().sort((a, b) => new Date(b.saat) - new Date(a.saat))
+    //               // this.tagHistory = data.data
+    //             })
+    //           })
+    //         }
+    //         break
+    //       }
+    //     }
+    //   }
+    //   this.taglistsPrev = data
+    // }
   },
   destroyed () {
-    clearInterval(this.intervalObj)
+    // clearInterval(this.intervalObj)
   }
 }
 </script>

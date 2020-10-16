@@ -13,12 +13,12 @@ export const fetchProduct = ({ commit }) => {
   })
 }
 
-export const fetchRooms = ({ commit }) => {
+export const fetchBolgeler = ({ commit }) => {
   // API request
-  return services.rooms.getAll()
+  return services.bolgeler.getAll()
   .then((response) => {
     console.log(response)
-    commit(types.FETCH_ROOMS, response.data)
+    commit(types.FETCH_BOLGELER, response.data)
   })
   .catch((error) => {
     console.error(error)

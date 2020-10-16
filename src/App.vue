@@ -2,9 +2,10 @@
   <div id="app">
     <div class="wrapper">
       <va-navibar></va-navibar>
-      <va-slider :slideMenuItems="roomsList" :slideMenuFixItems="slideMenuFixItems"></va-slider>
+      <va-slider :slideMenuItems="bolgelerList" :slideMenuFixItems="slideMenuFixItems"></va-slider>
       <va-content-wrap></va-content-wrap>
       <Modal></Modal>
+      <PersonelSearchModal></PersonelSearchModal>
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@ import VANaviBar from 'NaviBar.vue'
 import VASlider from 'Slider.vue'
 import VAContentWrap from 'ContentWrap.vue'
 import Modal from './components/Modal.vue'
+import PersonelSearchModal from './components/PersonelSearchModal.vue'
 import store from './vuex/store.js'
 import { mapGetters, mapActions } from 'vuex'
 import slideMenuFixItems from './lib/slideMenuItems.js'
@@ -26,24 +28,25 @@ export default {
     }
   },
   created () {
-    this.fetchRooms()
+    this.fetchBolgeler()
   },
   computed: {
     ...mapGetters([
       'currentUser',
-      'roomsList'
+      'bolgelerList'
     ])
   },
   methods: {
     ...mapActions([
-      'fetchRooms'
+      'fetchBolgeler'
     ])
   },
   components: {
     'va-navibar': VANaviBar,
     'va-slider': VASlider,
     'va-content-wrap': VAContentWrap,
-    Modal
+    Modal,
+    PersonelSearchModal
   },
   store
 }

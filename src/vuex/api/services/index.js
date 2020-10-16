@@ -1,9 +1,9 @@
 import products from './products'
-import rooms from './rooms'
+import bolgeler from './bolgeler'
 import plain from './plain'
 
 export default {
   products,
-  rooms,
+  bolgeler,
   plain
 }
