@@ -25,15 +25,18 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="item in searchResultList.slice(pageStart, pageStart+15)" v-bind:item="item" v-bind:key="item.PersonelId">
+              <tr v-for="item in searchResultList.slice(pageStart, pageStart+15)" :item="item" :key="item.PersonelSicilNo">
                 <td>{{item.PersonelSicilNo}}</td>
                 <td>{{item.PersonelAdi}}</td>
                 <td>{{item.TagMac?item.TagMac:"BOS"}}</td>
                 <th>
                   <div>
-                    <router-link :to='"/personelSearch/" + item.PersonelSicilNo'>
-                    <button v-if="item.TagMac" type="button" class="btn btn-success btn-flat btn-sm"><i class="fa fa-map-marker"></i></button>
-                    </router-link>
+                    <!-- <router-link :to='"/personelSearch/" + item.PersonelSicilNo'> -->
+                    <button type="button" class="btn btn-success btn-flat btn-sm" 
+                    :disabled="!item.TagMac"  @click="findUser(item.PersonelSicilNo)">
+                      <i class="fa fa-map-marker"></i>
+                    </button>
+                    <!-- </router-link> -->
                     <button type="button" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i></button>
                   </div>
@@ -47,7 +50,9 @@
         <!-- /.box-body -->
         <div class="box-footer clearfix">
           <ul class="pagination pagination-sm no-margin pull-right">
-            <li v-for="n in Math.ceil(searchResultCount / 15)"><button type="button" class="btn btn-flat btn-sm" :value="n" @click="pageSelect">{{n}}</button></li>
+            <li v-for="n in Math.ceil(searchResultCount / 15)" v-bind:key="n">
+              <button type="button" class="btn btn-flat btn-sm" :value="n" @click="pageSelect">{{n}}</button>
+            </li>
           </ul>
         </div>
         <!-- /.box-footer -->
@@ -57,7 +62,12 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import expressServer from '../expressServer'
+import Loading from 'vue-loading-overlay'
+
+Vue.use(Loading)
+
 export default {
   name: 'personelSearch',
   data () {
@@ -89,6 +99,18 @@ export default {
     },
     pageSelect ({type, target}) {
       this.pageStart = (target.value - 1) * 15
+    },
+    findUser (userid) {
+      let loader = this.$loading.show({
+        // Optional parameters
+        container: null,
+        canCancel: true
+      })
+      // simulate AJAX
+      setTimeout(() => {
+        loader.hide()
+      }, 5000)
+      console.log(userid)
     }
     // guncelle (data) {
     //   this.taglists = data

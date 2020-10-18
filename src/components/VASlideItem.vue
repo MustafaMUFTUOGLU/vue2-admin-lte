@@ -31,8 +31,8 @@ export default {
       }
     },
     router: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 0
     }
   },
   created () {

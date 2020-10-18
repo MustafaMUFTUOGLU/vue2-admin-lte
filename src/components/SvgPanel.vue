@@ -31,6 +31,7 @@
 import SvgPanZoom from 'vue-svg-pan-zoom'
 import { mapGetters, mapActions } from 'vuex'
 import socketio from '../socketio'
+import expressServer from '../expressServer'
 import plain from '../vuex/api/services/plain'
 
 export default {
@@ -81,28 +82,46 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     console.log('beforeRouteEnter : ', to.params, from.params)
-    plain.getAll(to.params.id)
+    expressServer.getHarita(to.params.id)
     .then((response) => {
-      console.log('aa: ', response.data)
       // this.deneme = response.data[0].svg
-      next(vm => vm.setPlainList(response.data[0]))
+      next(vm => vm.setPlainList(response.data))
     })
     .catch((error) => {
       console.error(error)
     })
+    // plain.getAll(to.params.id)
+    // .then((response) => {
+    //   console.log('aa: ', response.data)
+    //   // this.deneme = response.data[0].svg
+    //   next(vm => vm.setPlainList(response.data[0]))
+    // })
+    // .catch((error) => {
+    //   console.error(error)
+    // })
   },
   beforeRouteUpdate (to, from, next) {
     console.log('beforeRouteUpdate : ', to.params, from.params)
-    plain.getAll(to.params.id)
+    expressServer.getHarita(to.params.id)
     .then((response) => {
-      console.log('bb: ', response.data)
       // this.deneme = response.data[0].svg
-      this.setPlainList(response.data[0])
+      this.setPlainList(response.data)
       next()
+      // next(vm => vm.setPlainList(response.data))
     })
     .catch((error) => {
       console.error(error)
     })
+    // plain.getAll(to.params.id)
+    // .then((response) => {
+    //   console.log('bb: ', response.data)
+    //   // this.deneme = response.data[0].svg
+    //   this.setPlainList(response.data[0])
+    //   next()
+    // })
+    // .catch((error) => {
+    //   console.error(error)
+    // })
   },
   beforeRouteLeave (to, from, next) {
     console.log('beforeRouteLeave : ', to.params, from.params)
@@ -113,8 +132,7 @@ export default {
       'fetchPlane'
     ]),
     setPlainList (list) {
-      console.log('------------', list)
-      this.deneme = list.svg
+      this.deneme = list
     }
   }
 }

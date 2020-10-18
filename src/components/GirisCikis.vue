@@ -18,7 +18,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in taglists">
+            <tr v-for="item in taglists" v-bind:key="item">
               <td>{{item.tagName}}</td>
               <td>{{item.gateway}}</td>
               <td>
@@ -60,7 +60,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="item in tagHistory">
+            <tr v-for="item in tagHistory" v-bind:key="item">
               <td>{{item.tagName}}</td>
               <td>{{item.gateway}}</td>
               <td>

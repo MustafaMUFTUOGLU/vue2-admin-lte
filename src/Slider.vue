@@ -40,7 +40,7 @@
               :key="index"
               :name="item.UstKategoriAdi"
               :items="item.AltKategori"
-              :router="item.UstKategoriAdi.replace(/\s/g, '+')"
+              :router="item.UstKategoriId"
             >
             </va-slide-item>
           </ul>

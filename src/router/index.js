@@ -37,7 +37,11 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/bolgeler/:id',
+      path: '/Harita/:id',
+      component: SvgPanel
+    },
+    {
+      path: '/Harita/:id/:bolge',
       component: SvgPanel
     },
     {

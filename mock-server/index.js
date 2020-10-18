@@ -1,23 +1,23 @@
-const sqlite3 = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3').verbose()
 
-var datam = [];
-var bolgeler = [];
+var datam = []
+var bolgeler = []
 
 let db = new sqlite3.Database('./db.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
-    console.error(err.message);
+    console.error(err.message)
   }
-  console.log('Connected to the chinook database.');
-});
+  console.log('Connected to the chinook database.')
+})
 
 db.serialize(() => {
   db.all(`SELECT * FROM BolgeUstKategori LEFT JOIN BolgeAltKategori ON BolgeUstKategori.UstKategoriId = BolgeAltKategori.UstKategoriId`, (err, rows) => {
     if (err) {
-      console.error(err.message);
+      console.error(err.message)
     }
     rows.forEach((row) => {
-      //console.log(row);
-      if( !(row.UstKategoriId in bolgeler)) {
+      // console.log(row);
+      if (!(row.UstKategoriId in bolgeler)) {
         bolgeler[row.UstKategoriId] = {
           UstKategoriId: row.UstKategoriId,
           UstKategoriAdi: row.UstKategoriAdi,
@@ -29,9 +29,8 @@ db.serialize(() => {
         AltKategoriId: row.AltKategoriId,
         AltKategoriAdi: row.AltKategoriAdi
       })
-    });
-  });
-  
+    })
+  })
 
   // db.each(`SELECT * FROM BolgeUstKategori`, (err, row) => {
   //   if (err) {
@@ -47,42 +46,38 @@ db.serialize(() => {
   //     }
   //   });
   // });
-});
-
-
+})
 
 db.close((err) => {
   if (err) {
-    console.error(err.message);
+    console.error(err.message)
   }
-  console.log('Close the database connection.');
-});
+  console.log('Close the database connection.')
+})
 
 module.exports = function () {
-
-
-  //var data = { products: [] }
-  var data = { 
-    taglist: [ 
-      { id: 1, tagName: "tag1", gateway: "depo", state: 1 },
-      { id: 2, tagName: "tag2", gateway: "depo", state: 2 }
+  // var data = { products: [] }
+  var data = {
+    taglist: [
+      { id: 1, tagName: 'tag1', gateway: 'depo', state: 1 },
+      { id: 2, tagName: 'tag2', gateway: 'depo', state: 2 }
     ],
-    taghistory: [ 
-      { id: 1, tagName: "tag1", gateway: "depo", state: 1, saat: '10:12:20' },
-      { id: 2, tagName: "tag2", gateway: "depo", state: 2, saat: '11:09:15' }
+    taghistory: [
+      { id: 1, tagName: 'tag1', gateway: 'depo', state: 1, saat: '10:12:20' },
+      { id: 2, tagName: 'tag2', gateway: 'depo', state: 2, saat: '11:09:15' }
     ],
     roomslist: [
-    {
-      type: 'item',
-      isHeader: true,
-      name: 'MAIN NAVIGATION'
-    },
-    {
-      type: 'tree',
-      icon: 'fa fa-dashboard',
-      name: 'Katlar',
-      items: datam
-    }],
+      {
+        type: 'item',
+        isHeader: true,
+        name: 'MAIN NAVIGATION'
+      },
+      {
+        type: 'tree',
+        icon: 'fa fa-dashboard',
+        name: 'Katlar',
+        items: datam
+      }],
     plainList: bolgeler
     // plainList: [ {
     //   Bolge: "Kat1",
@@ -100,7 +95,7 @@ module.exports = function () {
 
   }
   // Create 1000 Product
-  //data.products = generateFakeObject(FakeProdcut, 5) 
-  return data 
+  // data.products = generateFakeObject(FakeProdcut, 5)
+  return data
 }
- 
+
