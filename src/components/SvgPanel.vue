@@ -8,18 +8,21 @@
    <!-- /.box-header -->
   <div class="box-body">
     <SvgPanZoom 
-      style="position: relative; top: 0; right: 0; bottom: 0; border:1px solid black;" 
       :fit="false"
       :center="true"
       :zoomEnabled="true"
+      @svgpanzoom="registerSvgPanZoom"
       >
-      <svg xmlns="http://www.w3.org/2000/svg" width="900px" height="700px" 
-      style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " >
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" >
+      <!-- <g>
+      <rect width="100%" height="100%" fill="green" />
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+      </g> -->
       <g v-html="deneme">
       </g>
-    <g>
-      <circle r="20" v-for="ii in filteredBeacon" :key="ii.id" :cx="ii.x" :cy="ii.y" class="circle"/>
-    </g>
+      <!-- <g>
+        <circle r="20" v-for="ii in filteredBeacon" :key="ii.id" :cx="ii.x" :cy="ii.y" class="circle"/>
+      </g> -->
     </svg>
     
     </SvgPanZoom>
@@ -39,7 +42,8 @@ export default {
   data () {
     return {
       bolgesvg: null,
-      deneme: null
+      deneme: null,
+      svgpanzoom: null
     }
   },
   props: {},
@@ -85,6 +89,8 @@ export default {
     expressServer.getHarita(to.params.id)
     .then((response) => {
       // this.deneme = response.data[0].svg
+      // this.setPlainList(response.data)
+      // next()
       next(vm => vm.setPlainList(response.data))
     })
     .catch((error) => {
@@ -133,6 +139,14 @@ export default {
     ]),
     setPlainList (list) {
       this.deneme = list
+      if (!this.svgpanzoom) return
+      console.log(this.svgpanzoom.getSizes())
+      this.svgpanzoom.updateBBox()
+      this.svgpanzoom.center()
+    },
+    registerSvgPanZoom (svgpanzoom) {
+      console.log('--->', svgpanzoom)
+      this.svgpanzoom = svgpanzoom
     }
   }
 }
