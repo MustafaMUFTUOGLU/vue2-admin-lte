@@ -4,7 +4,7 @@
       <i class="fa fa-circle-o"></i><span>{{ name }}</span>
     </router-link>
     <ul class="treeview-menu" v-if="items.length > 0">
-      <router-link tag="li" v-for="(item,index) in items" :data="item" :key="index" :to="'/Harita/' + router + '/' + item.AltKategoriAdi.replace(/\s/g, '+')">
+      <router-link tag="li" v-for="(item,index) in items" :data="item" :key="index" :to="'/Harita/' + router + '/' + encodeURI(item.AltKategoriAdi)">
         <a>
           <i class="fa fa-circle-o"></i> {{ item.AltKategoriAdi }}
         </a>
@@ -31,7 +31,7 @@ export default {
       }
     },
     router: {
-      type: Number,
+      type: String,
       default: 0
     }
   },

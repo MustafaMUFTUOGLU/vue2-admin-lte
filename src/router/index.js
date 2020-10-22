@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import SvgPanel from 'components/SvgPanel.vue'
+// import SvgPanel from 'components/SvgPanel.vue'
+import Leaflet from 'components/Leaflet.vue'
 import Hello from 'components/Hello.vue'
 import GirisCikis from 'components/GirisCikis.vue'
 import PersonelSearch from 'components/PersonelSearch.vue'
+
 // import DashboardV1 from 'examples/Dashboard.v1.vue'
 // import DashboardV2 from 'examples/Dashboard.v2.vue'
 // import InfoBoxExample from 'examples/InfoBoxExample'
@@ -36,13 +38,22 @@ export default new Router({
       name: 'Hello',
       component: Hello
     },
+    // {
+    //   path: '/Harita/:id',
+    //   component: SvgPanel
+    // },
+    // {
+    //   path: '/Harita/:id/:bolge',
+    //   component: SvgPanel
+    // },
     {
       path: '/Harita/:id',
-      component: SvgPanel
+      alias: '/Harita/',
+      component: Leaflet
     },
     {
       path: '/Harita/:id/:bolge',
-      component: SvgPanel
+      component: Leaflet
     },
     {
       path: '/giriscikis',

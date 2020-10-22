@@ -6,9 +6,13 @@ export default {
       .then((response) => Promise.resolve(response))
       .catch((error) => Promise.reject(error))
   },
-  getHarita (ustkategoriid) {
-    console.log(ustkategoriid)
-    return axios.get('http://localhost:4005/harita/' + ustkategoriid)
+  getHarita (ustkategoriadi) {
+    return axios.get('http://localhost:4005/harita/' + ustkategoriadi)
+      .then((response) => Promise.resolve(response))
+      .catch((error) => Promise.reject(error))
+  },
+  getBound (ustkategoriadi, altkategoriadi) {
+    return axios.get('http://localhost:4005/harita/' + ustkategoriadi + '/' + altkategoriadi)
       .then((response) => Promise.resolve(response))
       .catch((error) => Promise.reject(error))
   },

@@ -40,7 +40,7 @@
               :key="index"
               :name="item.UstKategoriAdi"
               :items="item.AltKategori"
-              :router="item.UstKategoriId"
+              :router="encodeURI(item.UstKategoriAdi)"
             >
             </va-slide-item>
           </ul>
