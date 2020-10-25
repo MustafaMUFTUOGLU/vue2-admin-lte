@@ -22,11 +22,16 @@
     <l-map 
       ref="map"
       :min-zoom="minZoom"
+      :max-zoom="maxZoom"
+      :zoom="zoom"
       :crs="crs"
-      style="height: 600px; width: 1200px"
+      :center="center"
+      style="height: 600px; width: 600px"
+      @ready="doSomethingOnReady()"
     >
-      <l-image-overlay :url="'/static/plane/' + url" :bounds="bounds" />
-      <l-marker v-for="star in stars" :key="star.name" :lat-lng="star">
+      <l-image-overlay :url="'/static/plane/' + url" :bounds="bounds">
+      </l-image-overlay>
+      <l-marker v-for="star in stars" :key="star.name" :lat-lng="setCoordinat(star.x, star.y)">
         <l-popup :content="star.name" />
       </l-marker>
       <l-polyline :lat-lngs="travel" />
@@ -36,7 +41,7 @@
 </template>
 
 <script>
-import { CRS, Icon } from 'leaflet'
+import { CRS, Icon, latLng } from 'leaflet'
 import { LMap, LImageOverlay, LMarker, LPopup, LPolyline } from 'vue2-leaflet'
 import { mapGetters, mapActions } from 'vuex'
 import socketio from '../socketio'
@@ -65,24 +70,23 @@ export default {
   },
   data () {
     return {
+      map: null,
       bolgesvg: null,
       deneme: null,
       url: null,
       bounds: [
         [0, 0],
-        [100, 100]
+        [1000, 1000]
       ],
+      center: [0, 0],
       minZoom: 1,
+      maxZoom: 4,
+      zoom: 1,
       crs: CRS.Simple,
-      stars: [
-        { name: 'Sol', lng: 175.2, lat: 145.0 },
-        { name: 'Mizar', lng: 41.6, lat: 130.1 },
-        { name: 'Krueger-Z', lng: 5, lat: 56.5 },
-        { name: 'Deneb', lng: 218.7, lat: 8.3 }
-      ],
+      stars: [],
       travel: [
-        [0, 0],
-        [50, 50]
+        latLng(0, 0),
+        latLng(50, 50)
       ]
     }
   },
@@ -204,7 +208,21 @@ export default {
       'fetchPlane'
     ]),
     setPlainList (list) {
-      this.url = list
+      this.url = list.svg
+      // this.bounds = [[0, 0], [list.height, list.width]]
+      var map = this.$refs.map.mapObject
+      var southWest = map.unproject([0, list.height], map.getMinZoom() + 1)
+      var northEast = map.unproject([list.width, 0], map.getMinZoom() + 1)
+      southWest.lat = Math.abs(southWest.lat)
+      console.log('---', southWest, northEast)
+      var bounds = new L.LatLngBounds(southWest, northEast)
+      this.bounds = bounds
+      console.log(bounds)
+      map.setMaxBounds(bounds)
+      this.zoom = 1
+      map.setZoom(1)
+      // map.fitBounds(bounds)
+      // this.setBounds(bounds)
       // if (!this.svgpanzoom) return
       // console.log(this.svgpanzoom.getSizes())
       // this.svgpanzoom.updateBBox()
@@ -229,8 +247,36 @@ export default {
     setBounds (bounds) {
       this.$refs.map.fitBounds(bounds)
     },
+    setCoordinat (x, y) {
+      var map = this.$refs.map.mapObject
+      var latlng = map.unproject([x, y], map.getMinZoom() + 1)
+      latlng.lat = Math.abs(latlng.lat)
+      return latlng
+    },
     test () {
-      console.log(this.$refs.map.fitBounds([[5, 10], [50, 100]]))
+      // this.$nextTick(() => {
+      //  console.log(this.$refs.map.mapObject.ANY_LEAFLET_MAP_METHOD())
+      // })
+      console.log(this.map.unproject([380, 444], this.map.getMinZoom() + 1))
+      // console.log(this.$refs.map.fitBounds([[5, 10], [50, 100]]))
+      // this.$nextTick(() => {
+      //   var map = this.$refs.map.mapObject
+      //   var southWest = map.unproject([0, 800], map.getMaxZoom() - 1)
+      //   var northEast = map.unproject([600, 0], map.getMaxZoom() - 1)
+      //   // var bounds = new L.LatLngBounds(southWest, northEast)
+      //   console.log(map.getMaxZoom())
+      //   console.log(new L.LatLngBounds(southWest, northEast))
+      // })
+    },
+    doSomethingOnReady () {
+      this.map = this.$refs.map.mapObject
+      this.stars = [
+        { name: 'Sol', x: 444, y: 380 },
+        { name: 'Mizar', x: 41.6, y: 130.1 },
+        { name: 'Krueger-Z', x: 5, y: 56.5 },
+        { name: 'Deneb', x: 218.7, y: 8.3 }
+      ]
+      console.log('doSomethingOnReady')
     }
   }
 }
