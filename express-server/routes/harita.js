@@ -10,5 +10,4 @@ router.get('/:ustkategoriadi/:altkategoriadi', async (req, res) => {
   return res.send(r)
 })
 
-
 module.exports = router

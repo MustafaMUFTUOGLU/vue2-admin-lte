@@ -2,6 +2,7 @@ const sqlite3 = require('sqlite3').verbose()
 var bolgeler = require('./bolgeler.js')
 var personel = require('./personel.js')
 var harita = require('./harita.js')
+var basestation = require('./basestation.js')
 
 let db = new sqlite3.Database('./db.db', sqlite3.OPEN_READWRITE, (err) => {
   if (err) {
@@ -21,5 +22,6 @@ module.exports = {
   db,
   bolgeler,
   personel,
-  harita
+  harita,
+  basestation
 }

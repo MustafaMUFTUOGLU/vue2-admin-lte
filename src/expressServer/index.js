@@ -1,6 +1,11 @@
 import axios from 'axios'
 
 export default {
+  getBaseStations (ustkategoriadi) {
+    return axios.get('http://localhost:4005/basestation/' + ustkategoriadi)
+      .then((response) => Promise.resolve(response))
+      .catch((error) => Promise.reject(error))
+  },
   getPersonels (request = {}) {
     return axios.get('http://localhost:4005/personel', request)
       .then((response) => Promise.resolve(response))

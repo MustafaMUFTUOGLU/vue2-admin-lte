@@ -56,6 +56,8 @@
     "vue-socket.io": "^3.0.10",
     "vue-svg-pan-zoom": "^1.1.0",
     "vue2-leaflet": "^2.6.0",
+    "vue2-leaflet-axesgrid": "^1.1.0",
+    "vue2-leaflet-fullscreen": "^1.0.0",
     "vuex": "^2.2.1"
   },
   "devDependencies": {

@@ -50,8 +50,8 @@
           
           <router-link to="/personelSearch">
           <!-- <a href="/personelSearch"> -->
-            <i class="fa fa-search"></i>
-            <span>Personel Ara</span> 
+            <i class="fa fa-user"></i>
+            <span>Personeller</span> 
           <!-- </a> -->
           </router-link>
         </li>
