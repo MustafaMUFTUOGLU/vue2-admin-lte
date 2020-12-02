@@ -4,7 +4,7 @@
       <!-- TABLE: LATEST ORDERS -->
       <div class="box box-info direct-chat direct-chat-warning">
         <div class="box-header with-border">
-          <h3 class="box-title pull-right">{{ this.$route.params.id }} / {{ filteredBeacon }}</h3>
+          <h3 class="box-title pull-right">{{ this.$route.params.id }} </h3>
           <div class="box-tools pull-left">
             <div class="has-feedback">
               <!-- <input type="text" class="form-control input-sm" placeholder="Personel Ara" @input="addEvent" @change="addEvent" >  -->
@@ -48,8 +48,15 @@
 
               <l-layer-group>
                 <l-layer-group layer-type="overlay" name="Nodes" :visible="true">
-                  <l-marker v-for="basestation in basestationsFiltered" :key="basestation.Adi" :lat-lng="[basestation.Y, basestation.X]">
+                  <l-marker :icon="gatewayIcon" v-for="basestation in basestationsFiltered" :key="basestation.Adi" :lat-lng="[basestation.Y, basestation.X]">
                     <l-popup :content="basestation.Adi" />
+                  </l-marker>
+                </l-layer-group>
+
+                
+                <l-layer-group layer-type="overlay" name="tag" :visible="true">
+                  <l-marker  v-for="aa in getBeaconsList" :key="aa.mac" :lat-lng="[aa.estimate.x, aa.estimate.y]">
+                    <!-- <l-popup :content="aa.mac" /> -->
                   </l-marker>
                 </l-layer-group>
 
@@ -57,10 +64,10 @@
                   <l-popup :content="gateway.Adi" />
                 </l-marker>  -->
 
-                <l-layer-group layer-type="overlay" name="Base Station" :visible="true">
+                <!-- <l-layer-group layer-type="overlay" name="Base Station" :visible="true">
                   <l-marker :icon="gatewayIcon" :lat-lng="asd">
                   </l-marker>
-                </l-layer-group>
+                </l-layer-group> -->
               </l-layer-group>
               <!-- <l-polyline :lat-lngs="travel" /> -->
             </l-map>
@@ -223,7 +230,7 @@ export default {
     }
   },
   created () {
-    // socketio.start()
+    socketio.start()
     // plain.getAll(this.$route.params.id)
     // .then((response) => {
     //   this.deneme = response.data[0].svg
