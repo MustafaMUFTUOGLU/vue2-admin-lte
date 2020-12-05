@@ -9,6 +9,7 @@ import App from './App'
 import router from './router'
 import EventBus from './lib/eventBus.js'
 import axios from 'axios'
+import i18n from './i18n'
 
 Vue.prototype.$bus = EventBus
 Vue.prototype.$http = axios
@@ -19,6 +20,8 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
+  i18n,
+
   components: {
     App
   }

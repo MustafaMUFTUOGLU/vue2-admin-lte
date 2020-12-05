@@ -26,9 +26,9 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul data-widget="tree" class="sidebar-menu">
         <li class="treeview">
-          <a href="/Harita">
+          <a href="/Map">
             <i class="fa fa-share"></i>
-            <span>Harita</span>
+            <span>{{ $t("Slider.Map") }}</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -51,7 +51,7 @@
           <router-link to="/personelSearch">
           <!-- <a href="/personelSearch"> -->
             <i class="fa fa-user"></i>
-            <span>Personeller</span> 
+            <span>{{ $t("Slider.Staff") }}</span> 
           <!-- </a> -->
           </router-link>
         </li>

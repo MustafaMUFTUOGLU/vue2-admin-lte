@@ -2,7 +2,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div id="content-wrap" class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <!-- <section class="content-header">
       <h1>
        
         <small>Version 2.0</small>
@@ -11,7 +11,7 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
       </ol>
-    </section>
+    </section> -->
 
     <section class="content">
       <transition name="page" mode="out-in">

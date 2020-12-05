@@ -4,37 +4,18 @@
   "description": "adminLTE to vuejs v2.x converting project",
   "author": "devjin0617 <devjin0617@gmail.com>",
   "scripts": {
-    "express": "node express-server/index.js",
-    "socketio": "node socketio-server/index.js",
-    "mock": "./node_modules/.bin/json-server ./mock-server/index.js",
-    "dev-server": "node build/dev-server.js",
-    "dev": "npm-run-all --parallel mock dev-server socketio express",
     "build": "node build/build.js",
-    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
+    "lint": "eslint --fix --ext .js,.vue src test/unit/specs test/e2e/specs",
+    "dev": "npm-run-all --parallel mock dev-server socketio express",
+    "dev-server": "node build/dev-server.js",
     "e2e": "node test/e2e/runner.js",
+    "express": "node express-server/index.js",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
+    "mock": "./node_modules/.bin/json-server ./mock-server/index.js",
+    "socketio": "node socketio-server/index.js",
     "test": "npm run unit && npm run e2e",
-    "lint": "eslint --fix --ext .js,.vue src test/unit/specs test/e2e/specs"
+    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/devjin0617/vue2-admin-lte"
-  },
-  "keywords": [
-    "admin-lte",
-    "vue2-admin-lte",
-    "vue-admin-lte",
-    "vuejs",
-    "vue.js",
-    "jquery",
-    "bootstrap",
-    "vue-jquery",
-    "vue-bootstrap",
-    "front-end"
-  ],
-  "bugs": {
-    "url": "https://github.com/devjin0617/vue2-admin-lte/issues"
-  },
-  "hompage": "https://github.com/devjin0617/vue2-admin-lte#readme",
   "dependencies": {
     "admin-lte": "^2.3.11",
     "axios": "^0.15.3",
@@ -51,6 +32,7 @@
     "socket.io-client": "^2.3.0",
     "sqlite3": "^5.0.0",
     "vue": "^2.2.1",
+    "vue-i18n": "^8.17.3",
     "vue-loading-overlay": "^3.4.2",
     "vue-router": "^2.3.0",
     "vue-socket.io": "^3.0.10",
@@ -119,6 +101,7 @@
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
     "url-loader": "^0.5.7",
+    "vue-cli-plugin-i18n": "~1.0.1",
     "vue-loader": "^10.3.0",
     "vue-style-loader": "^2.0.0",
     "vue-template-compiler": "^2.1.10",
@@ -128,8 +111,28 @@
     "webpack-hot-middleware": "^2.16.1",
     "webpack-merge": "^2.6.1"
   },
+  "bugs": {
+    "url": "https://github.com/devjin0617/vue2-admin-lte/issues"
+  },
   "engines": {
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
+  },
+  "hompage": "https://github.com/devjin0617/vue2-admin-lte#readme",
+  "keywords": [
+    "admin-lte",
+    "vue2-admin-lte",
+    "vue-admin-lte",
+    "vuejs",
+    "vue.js",
+    "jquery",
+    "bootstrap",
+    "vue-jquery",
+    "vue-bootstrap",
+    "front-end"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devjin0617/vue2-admin-lte"
   }
 }

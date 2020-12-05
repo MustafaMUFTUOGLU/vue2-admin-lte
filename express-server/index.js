@@ -8,7 +8,7 @@ const app = express()
 app.use(cors())
 app.use('/bolgeler', routes.bolgeler)
 app.use('/personel', routes.personel)
-app.use('/harita', routes.harita)
+app.use('/map', routes.harita)
 app.use('/basestation', routes.basestation)
 
 app.listen(4005, () =>

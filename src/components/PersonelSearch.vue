@@ -4,10 +4,10 @@
       <!-- TABLE: LATEST ORDERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Personeller</h3>
+          <h3 class="box-title">{{ $t("Slider.Staff") }}</h3>
           <div class="box-tools pull-right">
             <div class="has-feedback">
-              <input type="text" class="form-control input-sm" placeholder="Personel Ara" @input="addEvent" @change="addEvent" > 
+              <input type="text" class="form-control input-sm" :placeholder="$t('Staff.RegisterNumber')" @input="addEvent" @change="addEvent" > 
               <span class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>
           </div>
@@ -18,9 +18,9 @@
             <table class="table no-margin">
               <thead>
               <tr>
-                <th style="width: 150px">Sicil No</th>
-                <th>Personel Adi</th>
-                <th style="width: 200px">Tag MAC</th>
+                <th style="width: 150px">{{ $t("Staff.RegisterNumber") }}</th>
+                <th>{{ $t("Staff.Name") }}</th>
+                <th style="width: 200px">{{ $t("Staff.TagMac") }}</th>
                 <th style="width: 150px"></th>
               </tr>
               </thead>

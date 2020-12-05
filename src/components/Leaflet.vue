@@ -75,7 +75,7 @@
           <div class="personel-search-bar deneme">
             <div class="sidebar-form">
               <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Personel adı" @input="addEvent" @change="addEvent">
+                <input type="text" name="q" class="form-control" :placeholder="$t('Staff.Name')" @input="addEvent" @change="addEvent">
                 <span class="input-group-btn">
                       <div class="btn">
                         <i class="fa fa-search"></i>

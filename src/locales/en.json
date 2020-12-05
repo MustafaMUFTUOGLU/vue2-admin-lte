@@ -1,0 +1,11 @@
+{
+  "Slider": {
+    "Map": "Map",
+    "Staff": "Staff"
+  },
+  "Staff": {
+    "Name": "Name",
+    "RegisterNumber": "Register Number",
+    "TagMac": "Tag MAC"
+  }
+}

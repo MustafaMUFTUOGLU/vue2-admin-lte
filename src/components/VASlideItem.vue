@@ -1,10 +1,10 @@
 <template>
   <li class="treeview ">
-    <router-link :to="'/Harita/' + router">
+    <router-link :to="'/Map/' + router">
       <i class="fa fa-circle-o"></i><span>{{ name }}</span>
     </router-link>
     <ul class="treeview-menu" v-if="items.length > 0">
-      <router-link tag="li" v-for="(item,index) in items" :data="item" :key="index" :to="'/Harita/' + router + '/' + encodeURI(item.AltKategoriAdi)">
+      <router-link tag="li" v-for="(item,index) in items" :data="item" :key="index" :to="'/Map/' + router + '/' + encodeURI(item.AltKategoriAdi)">
         <a>
           <i class="fa fa-circle-o"></i> {{ item.AltKategoriAdi }}
         </a>

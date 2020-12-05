@@ -4,7 +4,6 @@ import Router from 'vue-router'
 // import SvgPanel from 'components/SvgPanel.vue'
 import Leaflet from 'components/Leaflet.vue'
 import Hello from 'components/Hello.vue'
-import GirisCikis from 'components/GirisCikis.vue'
 import PersonelSearch from 'components/PersonelSearch.vue'
 
 // import DashboardV1 from 'examples/Dashboard.v1.vue'
@@ -47,18 +46,13 @@ export default new Router({
     //   component: SvgPanel
     // },
     {
-      path: '/Harita/:id',
-      alias: '/Harita/',
+      path: '/Map/:id',
+      alias: '/Map/',
       component: Leaflet
     },
     {
-      path: '/Harita/:id/:bolge',
+      path: '/Map/:id/:bolge',
       component: Leaflet
-    },
-    {
-      path: '/giriscikis',
-      name: 'GirisCikis',
-      component: GirisCikis
     },
     {
       path: '/personelsearch',
