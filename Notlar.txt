@@ -1,0 +1,19 @@
+Kişiler - (guruplanacak)
+
+cihazlar - (donanım tipi, yazılım versiyonu, son haberleşme, son bulunduğu lok, bulunduğu metre mesafesi, bulunduğu kat)
+
+baz istasyonları ( ip ve mac leri, locasyon, metraj, donanım tipi, yazılım versiyon)
+
+locasyon listesi ( odalar- holler vb.) ( 
+
+mysql de poligon içindemi kontrolü nasıl yapılıyor incelenecek
+
+"misra c" 
+
+"do178 - do254" standartları
+
+in rush akımı
+ 
+free space intrinsic impedance
+
+Kare Dalga İçin Fourier Katsayıları 
