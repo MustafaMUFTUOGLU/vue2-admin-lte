@@ -60,7 +60,7 @@ mysqlx.getSession({ user: process.env.DB_USER, password: process.env.DB_PASSWD }
           IpAddress VARCHAR(45) NULL,
           HardwareVersion VARCHAR(45) NULL,
           SoftwareVersion VARCHAR(45) NULL,
-          idSubCategory INT NOT NULL,
+          idTopCategory INT NOT NULL,
           PRIMARY KEY (idBaseStation))`)
             .execute()
       })
