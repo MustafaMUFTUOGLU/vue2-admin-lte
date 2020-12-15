@@ -51,7 +51,7 @@
           <router-link to="/personelSearch">
           <!-- <a href="/personelSearch"> -->
             <i class="fa fa-user"></i>
-            <span>{{ $t("Slider.Staff") }}</span> 
+            <span>{{ $t("Slider.Person") }}</span> 
           <!-- </a> -->
           </router-link>
         </li>

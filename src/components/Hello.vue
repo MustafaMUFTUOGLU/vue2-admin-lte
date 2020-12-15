@@ -1,16 +1,16 @@
 <template>
   <div class="hello">
     <div>
-      <img class="logo" src="../assets/logo.png">
-      <button
+      <img class="logo" src="../assets/logo1.jpeg">
+      <!-- <button
         id="myButton"
         class="btn bg-maroon btn-flat margin"
         @click="clickBtn"
         :disabled="loading"
-        ><template v-if="loading">{{msgBye}}</template><template v-else>{{msgHello}}</template></button>
+        ><template v-if="loading">{{msgBye}}</template><template v-else>{{msgHello}}</template></button> -->
     </div>
     <div>
-      <h1>Demo list</h1>
+      <!-- <h1>Demo list</h1>
 
       <h3>Dashboard</h3>
       <ul>
@@ -39,7 +39,7 @@
       <h3>Forms</h3>
       <ul>
         <li>General Elements</li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </template>

@@ -4,10 +4,10 @@
       <!-- TABLE: LATEST ORDERS -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">{{ $t("Slider.Staff") }}</h3>
+          <h3 class="box-title">{{ $t("Slider.Person") }}</h3>
           <div class="box-tools pull-right">
             <div class="has-feedback">
-              <input type="text" class="form-control input-sm" :placeholder="$t('Staff.RegisterNumber')" @input="addEvent" @change="addEvent" > 
+              <input type="text" class="form-control input-sm" :placeholder="$t('Person.Name')" @input="findPersonOfName" @change="findPersonOfName" > 
               <span class="glyphicon glyphicon-search form-control-feedback"></span>
             </div>
           </div>
@@ -18,29 +18,31 @@
             <table class="table no-margin">
               <thead>
               <tr>
-                <th style="width: 150px">{{ $t("Staff.RegisterNumber") }}</th>
-                <th>{{ $t("Staff.Name") }}</th>
-                <th style="width: 200px">{{ $t("Staff.TagMac") }}</th>
-                <th style="width: 150px"></th>
+                <th style="width: 140px">{{ $t("Person.RegisterNumber") }}</th>
+                <th>{{ $t("Person.Name") }}</th>
+                <th style="width: 150px">{{ $t("Person.Department") }}</th>
+                <th style="width: 150px">{{ $t("Person.BeaconMAC") }}</th>
+                <th style="width: 120px"></th>
               </tr>
               </thead>
               <tbody>
-              <tr v-for="item in searchResultList.slice(pageStart, pageStart+15)" :item="item" :key="item.PersonelSicilNo">
-                <td>{{item.PersonelSicilNo}}</td>
-                <td>{{item.PersonelAdi}}</td>
-                <td>{{item.TagMac?item.TagMac:"BOS"}}</td>
-                <th>
+              <tr v-for="item in searchResultList.slice(pageStart, pageStart+15)" :item="item" :key="item.idPerson">
+                <td>{{item.PersonRegisterNo}}</td>
+                <td>{{item.PersonName}}</td>
+                <td>{{item.PersonGroupName}}</td>
+                <td>{{item.BeaconMAC?item.BeaconMAC: $t("Person.Null")}}</td>
+                <td>
                   <div>
                     <!-- <router-link :to='"/personelSearch/" + item.PersonelSicilNo'> -->
                     <button type="button" class="btn btn-success btn-flat btn-sm" 
-                    :disabled="!item.TagMac"  @click="findUser(item.PersonelSicilNo)">
+                    :disabled="!item.BeaconMAC"  @click="findUser(item.idPerson)">
                       <i class="fa fa-map-marker"></i>
                     </button>
                     <!-- </router-link> -->
                     <button type="button" class="btn btn-warning btn-flat btn-sm"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i></button>
                   </div>
-                </th>
+                </td>
               </tr>
               </tbody>
             </table>
@@ -90,9 +92,9 @@ export default {
     })
   },
   methods: {
-    addEvent ({type, target}) {
+    findPersonOfName ({type, target}) {
       this.searchResultList = this.personelList.filter(
-        a => a.PersonelAdi
+        a => a.PersonName
         .toLowerCase()
         .includes(target.value.toLowerCase()))
       this.searchResultCount = this.searchResultList.length

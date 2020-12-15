@@ -1,11 +1,18 @@
 {
   "Slider": {
     "Map": "Map",
-    "Staff": "Staff"
+    "Person": "Person"
   },
-  "Staff": {
-    "Name": "Name",
+  "Person": {
+    "Name": "Person Name",
+    "Department": "Department",
     "RegisterNumber": "Register Number",
-    "TagMac": "Tag MAC"
+    "BeaconMAC": "Beacon MAC",
+    "FindPerson": "Find Person",
+    "Null": "NULL"
+  },
+  "Map": {
+    "Gateway": "Gateway",
+    "Beacon": "Beacon"
   }
 }

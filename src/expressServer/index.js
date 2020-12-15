@@ -12,12 +12,12 @@ export default {
       .catch((error) => Promise.reject(error))
   },
   getHarita (ustkategoriadi) {
-    return axios.get('http://localhost:4005/harita/' + ustkategoriadi)
+    return axios.get('http://localhost:4005/map/' + ustkategoriadi)
       .then((response) => Promise.resolve(response))
       .catch((error) => Promise.reject(error))
   },
   getBound (ustkategoriadi, altkategoriadi) {
-    return axios.get('http://localhost:4005/harita/' + ustkategoriadi + '/' + altkategoriadi)
+    return axios.get('http://localhost:4005/map/' + ustkategoriadi + '/' + altkategoriadi)
       .then((response) => Promise.resolve(response))
       .catch((error) => Promise.reject(error))
   },
