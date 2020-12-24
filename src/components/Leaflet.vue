@@ -34,9 +34,10 @@
               :zoom="zoom"
               :crs="crs"
               :center="center"
-              style="height: 600px; width: 100%"
+              style="height: 85vh; width: 100%"
               @ready="doSomethingOnReady()"
             >
+             
               <l-draw-toolbar position="topleft"/>
               <l-control-fullscreen position="topleft"
                 :options="{ title: { 'false': 'Go big!', 'true': 'Be regular' } }" />
@@ -44,6 +45,8 @@
               <!-- <v-axesgrid :options="opts"/> -->
               <l-control-scale position="topright" :imperial="false" :metric="true"></l-control-scale>
               <!-- <l-tile-layer url="/static/tiles/{z}/{x}/{y}.png"></l-tile-layer> -->
+              <!-- <l-tile-layer  :url="urll" :attribution="attribution" /> -->
+
               <l-image-overlay :url="'/static/plane/' + url" :bounds="bounds">
               </l-image-overlay>
 
@@ -154,6 +157,8 @@ export default {
   },
   data () {
     return {
+      urll: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       asd: [50, 100],
       gatewayIcon: L.icon({
         iconUrl: '/static/img/marker-icon.png',
@@ -234,6 +239,7 @@ export default {
   },
   created () {
     socketio.start()
+
     // plain.getAll(this.$route.params.id)
     // .then((response) => {
     //   this.deneme = response.data[0].svg
@@ -366,6 +372,27 @@ export default {
       map.setMaxBounds(bounds)
       // this.zoom = -1
       map.setZoom(-1)
+      // var map = this.$refs.map.mapObject
+      map.on('draw:created', function (e) {
+        // var type = e.layerType
+        // var layer = e.layer
+        console.log('draw:created :', e)
+        // if (type === 'marker') {
+            // Do marker specific actions
+        // }
+        // Do whatever else you need to. (save to db, add to map etc)
+        // drawnItems.addLayer(layer)
+      })
+
+      map.on('draw:edited', function (e) {
+        // Update db to save latest changes.
+        console.log('draw:edited :', e)
+      })
+
+      map.on('draw:deleted', function (e) {
+        // Update db to save latest changes.
+        console.log('draw:deleted :', e)
+      })
       // map.fitBounds(bounds)
       // this.setBounds(bounds)
       // if (!this.svgpanzoom) return
