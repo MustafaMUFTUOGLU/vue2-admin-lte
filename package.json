@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node build/build.js",
     "lint": "eslint --fix --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "dev": "npm-run-all --parallel mock dev-server socketio",
+    "dev": "npm-run-all --parallel dev-server socketio",
     "dev-server": "node build/dev-server.js",
     "e2e": "node test/e2e/runner.js",
     "express": "node express-server/index.js",
