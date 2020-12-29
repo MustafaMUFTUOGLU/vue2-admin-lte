@@ -1,11 +1,11 @@
-var bolgeler = require('./bolgeler.js')
+var categorys = require('./categorys.js')
 var personel = require('./personel.js')
-var harita = require('./harita.js')
+var maps = require('./maps.js')
 var basestation = require('./basestation.js')
 
 module.exports = {
-  bolgeler,
+  categorys,
   personel,
-  harita,
+  maps,
   basestation
 }

@@ -18,7 +18,6 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run"
   },
   "dependencies": {
-    "@mysql/xdevapi": "^8.0.22",
     "admin-lte": "^2.3.11",
     "axios": "^0.15.3",
     "bootstrap": "^3.3.7",
@@ -31,6 +30,7 @@
     "jquery-slimscroll": "^1.3.8",
     "jquery-ui": "^1.12.1",
     "leaflet": "^1.7.1",
+    "mysql": "^2.18.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "sqlite3": "^5.0.0",

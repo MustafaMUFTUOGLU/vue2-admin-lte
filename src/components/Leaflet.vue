@@ -167,6 +167,8 @@ export default {
         shadowSize: [41, 41],
         iconAnchor: [12, 41]
       }),
+      selectedIdSubCategory: 0,
+      selectedIdTopCategory: 0,
       visibleSearchBar: false,
       basestations: null,
       basestationsFiltered: null,
@@ -254,11 +256,12 @@ export default {
     // socketio.stop()
   },
   beforeRouteEnter (to, from, next) {
-    console.log('beforeRouteEnter : ', to.params, from.params)
-    expressServer.getHarita(to.params.id)
+    console.log('beforeRouteEnter tc: ', to.params.idTopCategory, ' sc: ', to.params.idSubCategory)
+    expressServer.getMap(to.params.idTopCategory)
     .then((response) => {
-      if (to.params.bolge) {
-        expressServer.getBound(to.params.id, to.params.bolge)
+      console.log(response.data)
+      if (to.params.idSubCategory) {
+        expressServer.getMapBound(to.params.idTopCategory, to.params.idSubCategory)
         .then((response) => {
           console.log(response.data)
           // tmpbound = response.data
@@ -267,21 +270,27 @@ export default {
           console.error(error)
         })
       }
-
-      expressServer.getBaseStations(to.params.id)
-      .then((responseBaseStations) => {
-        console.log(responseBaseStations.data)
-        next(vm => {
-          vm.setPlainList(response.data)
-          vm.basestations = responseBaseStations.data
-          vm.basestationsFiltered = vm.basestations
-        })
+      next(vm => {
+        vm.setPlainList(response.data)
+        vm.selectedIdTopCategory = to.params.idTopCategory
+        vm.selectedIdSubCategory = to.params.idSubCategory
+        // vm.selectedIdSubCategory = to.params.id
       })
-      .catch((error) => {
-        console.error(error)
-        basestations = {}
-        basestationsFiltered = {}
-      })
+      // expressServer.getBaseStations(to.params.id)
+      // .then((responseBaseStations) => {
+      //   console.log(responseBaseStations.data)
+      //   next(vm => {
+      //     vm.setPlainList(response.data)
+      //     vm.basestations = responseBaseStations.data
+      //     vm.basestationsFiltered = vm.basestations
+      //     vm.selectedIdSubCategory = to.params.id
+      //   })
+      // })
+      // .catch((error) => {
+      //   console.error(error)
+      //   basestations = {}
+      //   basestationsFiltered = {}
+      // })
     })
     .catch((error) => {
       console.error(error)
@@ -297,50 +306,44 @@ export default {
     // })
   },
   beforeRouteUpdate (to, from, next) {
-    console.log('111beforeRouteUpdate : ', to.params, from.params)
-    expressServer.getHarita(to.params.id)
-    .then((response) => {
-      // this.deneme = response.data[0].svg
-      this.setPlainList(response.data)
-
-      if (to.params.bolge) {
-        expressServer.getBound(to.params.id, to.params.bolge)
+    console.log('111beforeRouteUpdate : ', to.params.idTopCategory, to.params.idSubCategory)
+    this.selectedIdSubCategory = to.params.idSubCategory
+    if (this.selectedIdTopCategory !== to.params.idTopCategory) {
+      this.selectedIdTopCategory = to.params.idTopCategory
+      expressServer.getMap(to.params.idTopCategory)
+      .then((response) => {
+        this.setPlainList(response.data)
+        if (to.params.idSubCategory) {
+          expressServer.getMapBound(to.params.idTopCategory, to.params.idSubCategory)
+          .then((response) => {
+            console.log(response.data)
+            this.setBounds(response.data)
+            next()
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+    } else {
+      if (to.params.idSubCategory) {
+        expressServer.getMapBound(to.params.idTopCategory, to.params.idSubCategory)
         .then((response) => {
           console.log(response.data)
           this.setBounds(response.data)
+          next()
         })
         .catch((error) => {
           console.error(error)
         })
       }
-      console.log('-----------------')
-      expressServer.getBaseStations(to.params.id)
-      .then((response) => {
-        console.log(response.data)
-        this.basestations = response.data
-        this.basestationsFiltered = this.basestations
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-      next()
-      // next(vm => vm.setPlainList(response.data))
-    })
-    .catch((error) => {
-      console.error(error)
-    })
-    // plain.getAll(to.params.id)
-    // .then((response) => {
-    //   console.log('bb: ', response.data)
-    //   // this.deneme = response.data[0].svg
-    //   this.setPlainList(response.data[0])
-    //   next()
-    // })
-    // .catch((error) => {
-    //   console.error(error)
-    // })
+    }
   },
   beforeRouteLeave (to, from, next) {
+    this.selectedIdSubCategory = to.params.id
     console.log('beforeRouteLeave : ', to.params, from.params)
     next()
   },
@@ -362,6 +365,7 @@ export default {
       this.url = list.svg
       // this.bounds = [[0, 0], [list.height, list.width]]
       var map = this.$refs.map.mapObject
+      var root = this
       var southWest = map.unproject([0, (list.height)], 0)
       var northEast = map.unproject([(list.width), 0], 0)
       southWest.lat = Math.abs(southWest.lat)
@@ -377,6 +381,39 @@ export default {
         // var type = e.layerType
         // var layer = e.layer
         console.log('draw:created :', e)
+        expressServer.getSubCategory(root.selectedIdTopCategory)
+        .then((response) => {
+          root.$bus.$emit('polygonaddmodal-open', {
+            SubCategorys: response.data,
+            confirmBefore: (idsubcategory) => {
+              console.log('confirmBefore : ', idsubcategory)
+              if (e.layer instanceof L.Polyline) {
+                var shape = e.layer.toGeoJSON()
+                if (shape.geometry.type === 'Polygon') {
+                  var tmp = []
+                  shape.geometry.coordinates[0].forEach((element) => {
+                    tmp.push(element[0] + ' ' + element[1])
+                  })
+                  var str = 'POLYGON((' + tmp.join(',') + '))'
+                  console.log(str)
+                  expressServer.setMapBound(root.selectedIdTopCategory, idsubcategory, str)
+                }
+              }
+            },
+            confirmAfter: () => {
+              console.log('confirmAfter')
+            },
+            cancelBefore: () => {
+              console.log('cancelBefore')
+              console.log(e.layer)
+              map.removeLayer(e.layer)
+            },
+            cancelAfter: () => {
+              console.log('cancelAfter')
+              console.log(map)
+            }
+          })
+        })
         // if (type === 'marker') {
             // Do marker specific actions
         // }
@@ -399,6 +436,9 @@ export default {
       // console.log(this.svgpanzoom.getSizes())
       // this.svgpanzoom.updateBBox()
       // this.svgpanzoom.center()
+    },
+    ondrawed (e) {
+
     },
     registerSvgPanZoom (svgpanzoom) {
       // console.log('--->', svgpanzoom)
@@ -459,6 +499,9 @@ export default {
     focusMaker (maker) {
       this.$refs.map.mapObject.setView([maker.Y, maker.X], 3)
       // this.$refs.map.fitBounds([maker.Y, maker.X])
+    },
+    openModalAddPolygon (ply) {
+      console.log('openModalAddPolygon')
     }
   }
 }

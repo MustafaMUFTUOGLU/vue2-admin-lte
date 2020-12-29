@@ -38,15 +38,21 @@
               v-for="(item,index) in slideMenuItems"
               :data="item"
               :key="index"
-              :name="item.UstKategoriAdi"
-              :items="item.AltKategori"
-              :router="encodeURI(item.UstKategoriAdi)"
+              :topCategory="item"
             >
+            <!-- <va-slide-item
+              v-for="(item,index) in slideMenuItems"
+              :data="item"
+              :key="index"
+              :name="item.TopCategoryName"
+              :topCategory="item"
+              :router="encodeURI(item.TopCategoryName)"
+            > -->
             </va-slide-item>
           </ul>
         </li>
         <li>
-          <!-- <a href="/personelSearch" @click="openModal"> -->
+          
           
           <router-link to="/personelSearch">
           <!-- <a href="/personelSearch"> -->
@@ -54,6 +60,9 @@
             <span>{{ $t("Slider.Person") }}</span> 
           <!-- </a> -->
           </router-link>
+        </li>
+        <li>
+          <a href="#" @click="openModal">sdfd</a>
         </li>
         
         <!-- <va-slide-item

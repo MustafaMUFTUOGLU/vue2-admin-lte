@@ -1,12 +1,15 @@
 <template>
   <li class="treeview ">
-    <router-link :to="'/Map/' + router">
-      <i class="fa fa-circle-o"></i><span>{{ name }}</span>
+    <router-link :to="{ name: 'Map',  params: {idTopCategory: topCategory.idTopCategory}}">
+      <i class="fa fa-circle-o"></i><span>{{ topCategory.TopCategoryName }}</span>
     </router-link>
-    <ul class="treeview-menu" v-if="items.length > 0">
-      <router-link tag="li" v-for="(item,index) in items" :data="item" :key="index" :to="'/Map/' + router + '/' + encodeURI(item.AltKategoriAdi)">
+    <!-- <ul class="treeview-menu" v-if="items.length > 0"> -->
+    <ul class="treeview-menu">
+      <!-- encodeURI(item.SubCategoryName) -->
+      <router-link tag="li" v-for="(item,index) in topCategory.SubCategory" :data="item" :key="index" 
+      :to="{ name: 'MapBound', params:{idTopCategory: topCategory.idTopCategory, idSubCategory: item.idSubCategory}}">
         <a>
-          <i class="fa fa-circle-o"></i> {{ item.AltKategoriAdi }}
+          <i class="fa fa-circle-o"></i> {{ item.SubCategoryName }}
         </a>
       </router-link>
     </ul>
@@ -24,19 +27,13 @@ export default {
     name: {
       type: String
     },
-    items: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
-    router: {
-      type: String,
-      default: 0
+    topCategory: {
+      type: Object,
+      default: []
     }
   },
   created () {
-
+    console.log(this.topCategory)
   },
   computed: {
     // getType () {

@@ -46,12 +46,13 @@ export default new Router({
     //   component: SvgPanel
     // },
     {
-      path: '/Map/:id',
-      alias: '/Map/',
+      name: 'Map',
+      path: '/Map/:idTopCategory',
       component: Leaflet
     },
     {
-      path: '/Map/:id/:bolge',
+      name: 'MapBound',
+      path: '/Map/:idTopCategory/MapBound/:idSubCategory',
       component: Leaflet
     },
     {

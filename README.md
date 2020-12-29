@@ -7,6 +7,12 @@
 ## [Documentation](https://devjin0617.gitbooks.io/vue2-admin-lte-guide/)
 
 
+Hata : Client does not support authentication protocol requested by server; consider upgrading MySQL client',
+Çözüm : 
+``` bash
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
+flush privileges;
+``` 
 
 ## Demo Build Setup
 

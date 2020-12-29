@@ -86,7 +86,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     console.log('beforeRouteEnter : ', to.params, from.params)
-    expressServer.getHarita(to.params.id)
+    expressServer.getMap(to.params.id)
     .then((response) => {
       // this.deneme = response.data[0].svg
       // this.setPlainList(response.data)
@@ -108,7 +108,7 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     console.log('beforeRouteUpdate : ', to.params, from.params)
-    expressServer.getHarita(to.params.id)
+    expressServer.getMap(to.params.id)
     .then((response) => {
       // this.deneme = response.data[0].svg
       this.setPlainList(response.data)

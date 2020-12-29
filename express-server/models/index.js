@@ -1,38 +1,26 @@
 // const sqlite3 = require('sqlite3').verbose()
 require('dotenv').config({path: '.server.env'})
-const mysqlx = require('@mysql/xdevapi') 
-var bolgeler = require('./bolgeler.js')
+const mysql = require('mysql')
+var categorys = require('./categorys.js')
 var personel = require('./personel.js')
-var harita = require('./harita.js')
+var maps = require('./maps.js')
 var basestation = require('./basestation.js')
 
-// var db = {
-//   session: {},
-//   tableMaps: {}
-// }
+var db = mysql.createConnection({
+  host: process.env.DB_SERVER,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWD
+})
 
-var db = mysqlx.getSession({ user: process.env.DB_USER, password: process.env.DB_PASSWD })
-  // .then(session => {
-  //   return session // session.getSchema(process.env.DB_SCHEMA)
-  // })
-// let db = new sqlite3.Database('./db.db', sqlite3.OPEN_READWRITE, (err) => {
-//   if (err) {
-//     console.error(err.message)
-//   }
-//   console.log('Connected to the chinook database.')
-// })
-
-// db.close((err) => {
-//     if (err) {
-//         console.error(err.message);
-//     }
-//     console.log('Close the database connection.');
-// });
+db.connect(function (err) {
+  if (err) throw err
+  console.log('MYSQL Connected!')
+})
 
 module.exports = {
   db,
-  bolgeler,
+  categorys,
   personel,
-  harita,
+  maps,
   basestation
 }
