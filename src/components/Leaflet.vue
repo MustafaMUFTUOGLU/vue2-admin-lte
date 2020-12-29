@@ -39,8 +39,8 @@
             >
              
               <l-draw-toolbar position="topleft"/>
-              <l-control-fullscreen position="topleft"
-                :options="{ title: { 'false': 'Go big!', 'true': 'Be regular' } }" />
+              <!-- <l-control-fullscreen position="topleft"
+                :options="{ title: { 'false': 'Go big!', 'true': 'Be regular' } }" /> -->
               <l-control-layers position="topright" ></l-control-layers>
               <!-- <v-axesgrid :options="opts"/> -->
               <l-control-scale position="topright" :imperial="false" :metric="true"></l-control-scale>
@@ -120,7 +120,7 @@ import {
   LControlScale,
   LLayerGroup
 } from 'vue2-leaflet'
-import LControlFullscreen from 'vue2-leaflet-fullscreen'
+// import LControlFullscreen from 'vue2-leaflet-fullscreen'
 import LDrawToolbar from 'vue2-leaflet-draw-toolbar'
 // import Vue2LeafletAxesGrid from 'vue2-leaflet-axesgrid'
 import { mapGetters, mapActions } from 'vuex'
@@ -145,7 +145,7 @@ export default {
     LPolyline,
     LTileLayer,
     LControlLayers,
-    LControlFullscreen,
+    // LControlFullscreen,
     LDrawToolbar,
     // 'v-axesgrid': Vue2LeafletAxesGrid,
     LControlScale,

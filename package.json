@@ -43,7 +43,6 @@
     "vue2-leaflet": "^2.6.0",
     "vue2-leaflet-axesgrid": "^1.1.0",
     "vue2-leaflet-draw-toolbar": "^0.1.1",
-    "vue2-leaflet-fullscreen": "^1.0.0",
     "vuex": "^2.2.1"
   },
   "devDependencies": {
