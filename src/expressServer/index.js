@@ -11,6 +11,11 @@ export default {
       .then((response) => Promise.resolve(response))
       .catch((error) => Promise.reject(error))
   },
+  getSubCategorysPolygon (idTopCategory) {
+    return axios.get('http://localhost:4005/categorys/polygon/' + idTopCategory)
+      .then((response) => Promise.resolve(response))
+      .catch((error) => Promise.reject(error))
+  },
   getBaseStations (idTopCategory) {
     return axios.get('http://localhost:4005/basestation/' + idTopCategory)
       .then((response) => Promise.resolve(response))

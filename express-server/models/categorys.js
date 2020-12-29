@@ -63,5 +63,35 @@ module.exports = {
         reject(error)
       }
     })
+  },
+  getSubCategorysPolygon: function (db, idtopcategory) {
+    return new Promise(function (resolve, reject) {
+      try {
+        if (idtopcategory === 'undefined') {
+          reject()
+          return
+        }
+        var qry = `SELECT sc.idSubCategory, sc.SubCategoryName, sc.SubCategoryPolygon FROM 
+          ${process.env.DB_SCHEMA}.SubCategory sc
+          WHERE sc.idTopCategory = ` + idtopcategory
+        console.log(qry)
+        db.query(qry, function (err, rows) {
+          if (err) {
+            reject(err)
+          }
+          var SubCategory = []
+          rows.forEach((row) => {
+            SubCategory.push({
+              idSubCategory: row.idSubCategory,
+              SubCategoryName: row.SubCategoryName,
+              SubCategoryPolygon: row.SubCategoryPolygon
+            })
+          })
+          resolve(SubCategory)
+        })
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 }

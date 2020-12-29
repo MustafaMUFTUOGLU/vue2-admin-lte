@@ -3,3 +3,4 @@
 [1025/111933.270:ERROR:directory_reader_win.cc(43)] FindFirstFile: Sistem belirtilen yolu bulamï¿½yor. (0x3)
 [1026/192952.511:ERROR:directory_reader_win.cc(43)] FindFirstFile: Sistem belirtilen yolu bulamï¿½yor. (0x3)
 [1030/204226.902:ERROR:directory_reader_win.cc(43)] FindFirstFile: Sistem belirtilen yolu bulamï¿½yor. (0x3)
+[1229/200119.193:ERROR:directory_reader_win.cc(43)] FindFirstFile: Sistem belirtilen yolu bulamýyor. (0x3)

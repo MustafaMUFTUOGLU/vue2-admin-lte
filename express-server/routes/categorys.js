@@ -11,4 +11,11 @@ router.get('/:idtopcategory', async (req, res) => {
   return res.send(r)
 })
 
+router.get('/polygon/:idtopcategory', async (req, res) => {
+  r = await models.categorys.getSubCategorysPolygon(models.db, req.params.idtopcategory)
+  return res.send(r)
+})
+
+
+
 module.exports = router

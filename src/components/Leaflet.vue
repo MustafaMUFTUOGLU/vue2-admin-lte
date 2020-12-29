@@ -256,54 +256,73 @@ export default {
     // socketio.stop()
   },
   beforeRouteEnter (to, from, next) {
-    console.log('beforeRouteEnter tc: ', to.params.idTopCategory, ' sc: ', to.params.idSubCategory)
-    expressServer.getMap(to.params.idTopCategory)
-    .then((response) => {
-      console.log(response.data)
-      if (to.params.idSubCategory) {
-        expressServer.getMapBound(to.params.idTopCategory, to.params.idSubCategory)
-        .then((response) => {
-          console.log(response.data)
-          // tmpbound = response.data
+    next(vm => {
+      var map = vm.$refs.map.mapObject
+      console.log('beforeRouteEnter tc: ', to.params.idTopCategory, ' sc: ', to.params.idSubCategory)
+      expressServer.getMap(to.params.idTopCategory)
+      .then((response) => {
+        console.log(response.data)
+        expressServer.getSubCategorysPolygon(to.params.idTopCategory)
+        .then((responsepolygon) => {
+          console.log(responsepolygon)
+          // FeatureGroup is to store editable layers
+          console.log(map)
+          var drawnItems = new L.FeatureGroup()
+          map.addLayer(drawnItems)
+          var drawControl = new L.Control.Draw({
+            edit: {
+              featureGroup: drawnItems
+            }
+          })
+          map.addControl(drawControl)
+
+          if (to.params.idSubCategory) {
+            expressServer.getMapBound(to.params.idTopCategory, to.params.idSubCategory)
+            .then((response) => {
+              console.log(response.data)
+              // tmpbound = response.data
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+          }
+          vm.setPlainList(response.data)
+          vm.selectedIdTopCategory = to.params.idTopCategory
+          vm.selectedIdSubCategory = to.params.idSubCategory
+          // vm.selectedIdSubCategory = to.params.id
         })
         .catch((error) => {
           console.error(error)
         })
-      }
-      next(vm => {
-        vm.setPlainList(response.data)
-        vm.selectedIdTopCategory = to.params.idTopCategory
-        vm.selectedIdSubCategory = to.params.idSubCategory
-        // vm.selectedIdSubCategory = to.params.id
+        // expressServer.getBaseStations(to.params.id)
+        // .then((responseBaseStations) => {
+        //   console.log(responseBaseStations.data)
+        //   next(vm => {
+        //     vm.setPlainList(response.data)
+        //     vm.basestations = responseBaseStations.data
+        //     vm.basestationsFiltered = vm.basestations
+        //     vm.selectedIdSubCategory = to.params.id
+        //   })
+        // })
+        // .catch((error) => {
+        //   console.error(error)
+        //   basestations = {}
+        //   basestationsFiltered = {}
+        // })
       })
-      // expressServer.getBaseStations(to.params.id)
-      // .then((responseBaseStations) => {
-      //   console.log(responseBaseStations.data)
-      //   next(vm => {
-      //     vm.setPlainList(response.data)
-      //     vm.basestations = responseBaseStations.data
-      //     vm.basestationsFiltered = vm.basestations
-      //     vm.selectedIdSubCategory = to.params.id
-      //   })
+      .catch((error) => {
+        console.error(error)
+      })
+      // plain.getAll(to.params.id)
+      // .then((response) => {
+      //   console.log('aa: ', response.data)
+      //   // this.deneme = response.data[0].svg
+      //   next(vm => vm.setPlainList(response.data[0]))
       // })
       // .catch((error) => {
       //   console.error(error)
-      //   basestations = {}
-      //   basestationsFiltered = {}
       // })
     })
-    .catch((error) => {
-      console.error(error)
-    })
-    // plain.getAll(to.params.id)
-    // .then((response) => {
-    //   console.log('aa: ', response.data)
-    //   // this.deneme = response.data[0].svg
-    //   next(vm => vm.setPlainList(response.data[0]))
-    // })
-    // .catch((error) => {
-    //   console.error(error)
-    // })
   },
   beforeRouteUpdate (to, from, next) {
     console.log('111beforeRouteUpdate : ', to.params.idTopCategory, to.params.idSubCategory)
@@ -313,17 +332,24 @@ export default {
       expressServer.getMap(to.params.idTopCategory)
       .then((response) => {
         this.setPlainList(response.data)
-        if (to.params.idSubCategory) {
-          expressServer.getMapBound(to.params.idTopCategory, to.params.idSubCategory)
-          .then((response) => {
-            console.log(response.data)
-            this.setBounds(response.data)
-            next()
-          })
-          .catch((error) => {
-            console.error(error)
-          })
-        }
+        expressServer.getSubCategorysPolygon(to.params.idTopCategory)
+        .then((responsepolygon) => {
+          console.log(responsepolygon)
+          if (to.params.idSubCategory) {
+            expressServer.getMapBound(to.params.idTopCategory, to.params.idSubCategory)
+            .then((response) => {
+              console.log(response.data)
+              this.setBounds(response.data)
+              next()
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+          }
+        })
+        .catch((error) => {
+          console.error(error)
+        })
       })
       .catch((error) => {
         console.error(error)
